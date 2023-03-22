@@ -6,7 +6,7 @@ import React from 'react';
 
 export interface UiState{
     sideMenuOpen : boolean,
-
+    isAddingEntry : boolean
 }
 
 interface Props {
@@ -15,13 +15,17 @@ interface Props {
 
 
 const UiInitialState : UiState = {
-    sideMenuOpen : false
+    sideMenuOpen : false,
+    isAddingEntry : false
+
 }
 
 export const UiProvider = ({children} : Props  ) => {
 
 
     const [state, dispatch] = useReducer (uiReducer , UiInitialState)
+
+
 
     const openSideBar = () => {
         dispatch({type: "UI - Open Sidebar"})
@@ -32,9 +36,14 @@ export const UiProvider = ({children} : Props  ) => {
         dispatch({type: "UI - Close Sidebar"})
     }
 
+    const setIsAddingEntry = (isAdding : boolean) => {
+      dispatch({type : "UI - Is Adding", payload: isAdding})
+        
+    }
+
 
     return (
-        <UIContext.Provider value={{...state , openSideBar , closeSideBar}}> 
+        <UIContext.Provider value={{...state , openSideBar , closeSideBar, setIsAddingEntry}}> 
             {children}
         </UIContext.Provider>
     )

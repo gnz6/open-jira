@@ -1,6 +1,7 @@
 import { Grid, Typography, Card, CardHeader, CardContent } from "@mui/material";
 import { Layout } from '../components/layouts/Layout';
-import { EntryList } from "@/context/ui/EntryList";
+import { EntryList } from "@/components/ui/EntryList";
+import { NewEntry } from "@/components/ui";
 
 
 const HomePage = () => {
@@ -13,6 +14,7 @@ const HomePage = () => {
             <CardHeader title="Pending"/>
               
               {/* Add task */}
+              <NewEntry/>
               <EntryList status="pending"/>
 
           </Card>

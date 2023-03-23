@@ -6,7 +6,8 @@ import React from 'react';
 
 export interface UiState{
     sideMenuOpen : boolean,
-    isAddingEntry : boolean
+    isAddingEntry : boolean,
+    isDragging: boolean
 }
 
 interface Props {
@@ -16,7 +17,8 @@ interface Props {
 
 const UiInitialState : UiState = {
     sideMenuOpen : false,
-    isAddingEntry : false
+    isAddingEntry : false,
+    isDragging : false
 
 }
 
@@ -37,13 +39,23 @@ export const UiProvider = ({children} : Props  ) => {
     }
 
     const setIsAddingEntry = (isAdding : boolean) => {
-      dispatch({type : "UI - Is Adding", payload: isAdding})
-        
-    }
+        dispatch({type : "UI - Is Adding", payload: isAdding})
+          
+      }
+
+      const startDragging = () => {
+        dispatch({type :  "UI - Start Dragging"})
+          
+      }
+
+      const endDragging = () => {
+        dispatch({type : "UI - End Dragging"})
+          
+      }
 
 
     return (
-        <UIContext.Provider value={{...state , openSideBar , closeSideBar, setIsAddingEntry}}> 
+        <UIContext.Provider value={{...state , openSideBar , closeSideBar, setIsAddingEntry , startDragging, endDragging}}> 
             {children}
         </UIContext.Provider>
     )

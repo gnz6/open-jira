@@ -50,13 +50,13 @@ export const EntriesProvider = ({children} : Props  ) => {
         dispatch({type:"[Entry] Add-Entry", payload: newEntry})
     }
 
-    const isAddingEntry = (isAdding : boolean) => {
 
+    const updateEntry = (entry : Entry) => {
+        dispatch({type:"[Entry] Update-Entry", payload : entry})
     }
 
-
     return (
-        <EntriesContext.Provider value={{...state, addEntry : addNewEntry }}> 
+        <EntriesContext.Provider value={{...state, addEntry : addNewEntry , updateEntry}}> 
             {children}
         </EntriesContext.Provider>
     )

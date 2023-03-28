@@ -3,7 +3,8 @@ import { Entry } from "../../interfaces/entry";
 
 type EntriesType =
   | { type: "[Entry] Add-Entry"; payload: Entry }
-  | { type: "[Entry] Update-Entry"; payload: Entry };
+  | { type: "[Entry] Update-Entry"; payload: Entry }
+  | { type: "[Entry] Initial-Entries"; payload: Entry[] };
 
 export const entriesReducer = (
   state: entriesState,
@@ -26,6 +27,11 @@ export const entriesReducer = (
           return e;
         }),
       };
+      case "[Entry] Initial-Entries":
+        return {
+          ...state,
+          entries : [...action.payload]
+        }
 
     default:
       return state;

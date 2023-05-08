@@ -3,6 +3,8 @@ import { Entry } from '../../interfaces/entry';
 import { DragEvent, useContext } from "react";
 import { UIContext } from '@/context/ui';
 import styles from "./EntryList.module.css"
+import { useRouter } from 'next/router';
+import {getFormatToNow} from "../../utils/dateFunctions"
 
 interface Props{
     entry: Entry
@@ -12,9 +14,11 @@ interface Props{
 export const EntryCard = ({entry}: Props) => {
 
   const { startDragging, endDragging, isDragging } = useContext(UIContext);
+  const router = useRouter();
 
   const onDragStart = (event : DragEvent) => {
     event.dataTransfer?.setData("text", entry._id)
+    console.log(entry)
     startDragging()
   }
 
@@ -22,9 +26,14 @@ export const EntryCard = ({entry}: Props) => {
     endDragging()
   }
 
+  const onCLick=()=> {
+    router.push(`/entrues/${entry._id}`)
+  }
+
 
   return (
     <Card
+    onClick={onCLick}
     sx={{marginBottom: 1}}
     draggable
     onDragStart={ onDragStart }
@@ -38,7 +47,7 @@ export const EntryCard = ({entry}: Props) => {
             </CardContent>
 
             <CardActions sx={{display:"flex", justifyContent:"end", paddingRight:2}}>
-            <Typography variant='body2' > {entry.createdAt}</Typography>
+            <Typography variant='body2' > {getFormatToNow(entry.createdAt)}</Typography>
 
             </CardActions>
         </CardActionArea>

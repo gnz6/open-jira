@@ -26,6 +26,7 @@ export const NewEntry = () => {
     setIsAddingEntry(true)
     addEntry(inputValue);
     setIsAddingEntry(false)
+    setInputValue("")
 
   };
 

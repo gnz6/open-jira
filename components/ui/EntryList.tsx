@@ -16,13 +16,15 @@ export const EntryList = ({status} : Props) => {
     const { entries, updateEntry } = useContext(EntriesContext);
     const { isDragging, endDragging } = useContext(UIContext);
 
-    const filterStatus = useMemo( () =>  entries.filter( e => e.status === status) ,[entries] )
+    const filterStatus = useMemo( () =>  entries.filter( e => e.status === status) ,[entries, status] )
     
     
     const onDropEntry =(event : DragEvent) => {
         const id = event.dataTransfer.getData("text")
         const entry : Entry = entries.find( e => e._id === id)!;
+        
         entry.status = status;
+        console.log(entry.status, "entry-status");
         updateEntry(entry)
         endDragging();
     }
